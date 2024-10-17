@@ -6,5 +6,7 @@ part 'other_model.freezed.dart';
 class OtherUser with _$OtherUser {
   const factory OtherUser(
       {required String profilePhotoUrl,
-      required DateTime lastOnline}) = _OtherUser;
+      required DateTime lastOnline,
+      String? lastMessage,
+      bool? mustCheck}) = _OtherUser;
 }

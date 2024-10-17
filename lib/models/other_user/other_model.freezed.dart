@@ -18,6 +18,8 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$OtherUser {
   String get profilePhotoUrl => throw _privateConstructorUsedError;
   DateTime get lastOnline => throw _privateConstructorUsedError;
+  String? get lastMessage => throw _privateConstructorUsedError;
+  bool? get mustCheck => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $OtherUserCopyWith<OtherUser> get copyWith =>
@@ -29,7 +31,11 @@ abstract class $OtherUserCopyWith<$Res> {
   factory $OtherUserCopyWith(OtherUser value, $Res Function(OtherUser) then) =
       _$OtherUserCopyWithImpl<$Res, OtherUser>;
   @useResult
-  $Res call({String profilePhotoUrl, DateTime lastOnline});
+  $Res call(
+      {String profilePhotoUrl,
+      DateTime lastOnline,
+      String? lastMessage,
+      bool? mustCheck});
 }
 
 /// @nodoc
@@ -47,6 +53,8 @@ class _$OtherUserCopyWithImpl<$Res, $Val extends OtherUser>
   $Res call({
     Object? profilePhotoUrl = null,
     Object? lastOnline = null,
+    Object? lastMessage = freezed,
+    Object? mustCheck = freezed,
   }) {
     return _then(_value.copyWith(
       profilePhotoUrl: null == profilePhotoUrl
@@ -57,6 +65,14 @@ class _$OtherUserCopyWithImpl<$Res, $Val extends OtherUser>
           ? _value.lastOnline
           : lastOnline // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      lastMessage: freezed == lastMessage
+          ? _value.lastMessage
+          : lastMessage // ignore: cast_nullable_to_non_nullable
+              as String?,
+      mustCheck: freezed == mustCheck
+          ? _value.mustCheck
+          : mustCheck // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ) as $Val);
   }
 }
@@ -69,7 +85,11 @@ abstract class _$$OtherUserImplCopyWith<$Res>
       __$$OtherUserImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String profilePhotoUrl, DateTime lastOnline});
+  $Res call(
+      {String profilePhotoUrl,
+      DateTime lastOnline,
+      String? lastMessage,
+      bool? mustCheck});
 }
 
 /// @nodoc
@@ -85,6 +105,8 @@ class __$$OtherUserImplCopyWithImpl<$Res>
   $Res call({
     Object? profilePhotoUrl = null,
     Object? lastOnline = null,
+    Object? lastMessage = freezed,
+    Object? mustCheck = freezed,
   }) {
     return _then(_$OtherUserImpl(
       profilePhotoUrl: null == profilePhotoUrl
@@ -95,6 +117,14 @@ class __$$OtherUserImplCopyWithImpl<$Res>
           ? _value.lastOnline
           : lastOnline // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      lastMessage: freezed == lastMessage
+          ? _value.lastMessage
+          : lastMessage // ignore: cast_nullable_to_non_nullable
+              as String?,
+      mustCheck: freezed == mustCheck
+          ? _value.mustCheck
+          : mustCheck // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ));
   }
 }
@@ -103,16 +133,23 @@ class __$$OtherUserImplCopyWithImpl<$Res>
 
 class _$OtherUserImpl implements _OtherUser {
   const _$OtherUserImpl(
-      {required this.profilePhotoUrl, required this.lastOnline});
+      {required this.profilePhotoUrl,
+      required this.lastOnline,
+      this.lastMessage,
+      this.mustCheck});
 
   @override
   final String profilePhotoUrl;
   @override
   final DateTime lastOnline;
+  @override
+  final String? lastMessage;
+  @override
+  final bool? mustCheck;
 
   @override
   String toString() {
-    return 'OtherUser(profilePhotoUrl: $profilePhotoUrl, lastOnline: $lastOnline)';
+    return 'OtherUser(profilePhotoUrl: $profilePhotoUrl, lastOnline: $lastOnline, lastMessage: $lastMessage, mustCheck: $mustCheck)';
   }
 
   @override
@@ -123,11 +160,16 @@ class _$OtherUserImpl implements _OtherUser {
             (identical(other.profilePhotoUrl, profilePhotoUrl) ||
                 other.profilePhotoUrl == profilePhotoUrl) &&
             (identical(other.lastOnline, lastOnline) ||
-                other.lastOnline == lastOnline));
+                other.lastOnline == lastOnline) &&
+            (identical(other.lastMessage, lastMessage) ||
+                other.lastMessage == lastMessage) &&
+            (identical(other.mustCheck, mustCheck) ||
+                other.mustCheck == mustCheck));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, profilePhotoUrl, lastOnline);
+  int get hashCode => Object.hash(
+      runtimeType, profilePhotoUrl, lastOnline, lastMessage, mustCheck);
 
   @JsonKey(ignore: true)
   @override
@@ -139,12 +181,18 @@ class _$OtherUserImpl implements _OtherUser {
 abstract class _OtherUser implements OtherUser {
   const factory _OtherUser(
       {required final String profilePhotoUrl,
-      required final DateTime lastOnline}) = _$OtherUserImpl;
+      required final DateTime lastOnline,
+      final String? lastMessage,
+      final bool? mustCheck}) = _$OtherUserImpl;
 
   @override
   String get profilePhotoUrl;
   @override
   DateTime get lastOnline;
+  @override
+  String? get lastMessage;
+  @override
+  bool? get mustCheck;
   @override
   @JsonKey(ignore: true)
   _$$OtherUserImplCopyWith<_$OtherUserImpl> get copyWith =>

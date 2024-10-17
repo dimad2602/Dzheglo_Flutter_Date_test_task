@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$User {
   int get receivedLikes => throw _privateConstructorUsedError;
   String? get profilePhotoUrl => throw _privateConstructorUsedError;
+  bool? get mustCheck => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $UserCopyWith<User> get copyWith => throw _privateConstructorUsedError;
@@ -28,7 +29,7 @@ abstract class $UserCopyWith<$Res> {
   factory $UserCopyWith(User value, $Res Function(User) then) =
       _$UserCopyWithImpl<$Res, User>;
   @useResult
-  $Res call({int receivedLikes, String? profilePhotoUrl});
+  $Res call({int receivedLikes, String? profilePhotoUrl, bool? mustCheck});
 }
 
 /// @nodoc
@@ -46,6 +47,7 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
   $Res call({
     Object? receivedLikes = null,
     Object? profilePhotoUrl = freezed,
+    Object? mustCheck = freezed,
   }) {
     return _then(_value.copyWith(
       receivedLikes: null == receivedLikes
@@ -56,6 +58,10 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
           ? _value.profilePhotoUrl
           : profilePhotoUrl // ignore: cast_nullable_to_non_nullable
               as String?,
+      mustCheck: freezed == mustCheck
+          ? _value.mustCheck
+          : mustCheck // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ) as $Val);
   }
 }
@@ -67,7 +73,7 @@ abstract class _$$UserImplCopyWith<$Res> implements $UserCopyWith<$Res> {
       __$$UserImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int receivedLikes, String? profilePhotoUrl});
+  $Res call({int receivedLikes, String? profilePhotoUrl, bool? mustCheck});
 }
 
 /// @nodoc
@@ -82,6 +88,7 @@ class __$$UserImplCopyWithImpl<$Res>
   $Res call({
     Object? receivedLikes = null,
     Object? profilePhotoUrl = freezed,
+    Object? mustCheck = freezed,
   }) {
     return _then(_$UserImpl(
       receivedLikes: null == receivedLikes
@@ -92,6 +99,10 @@ class __$$UserImplCopyWithImpl<$Res>
           ? _value.profilePhotoUrl
           : profilePhotoUrl // ignore: cast_nullable_to_non_nullable
               as String?,
+      mustCheck: freezed == mustCheck
+          ? _value.mustCheck
+          : mustCheck // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ));
   }
 }
@@ -99,16 +110,19 @@ class __$$UserImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$UserImpl implements _User {
-  const _$UserImpl({required this.receivedLikes, this.profilePhotoUrl});
+  const _$UserImpl(
+      {required this.receivedLikes, this.profilePhotoUrl, this.mustCheck});
 
   @override
   final int receivedLikes;
   @override
   final String? profilePhotoUrl;
+  @override
+  final bool? mustCheck;
 
   @override
   String toString() {
-    return 'User(receivedLikes: $receivedLikes, profilePhotoUrl: $profilePhotoUrl)';
+    return 'User(receivedLikes: $receivedLikes, profilePhotoUrl: $profilePhotoUrl, mustCheck: $mustCheck)';
   }
 
   @override
@@ -119,11 +133,14 @@ class _$UserImpl implements _User {
             (identical(other.receivedLikes, receivedLikes) ||
                 other.receivedLikes == receivedLikes) &&
             (identical(other.profilePhotoUrl, profilePhotoUrl) ||
-                other.profilePhotoUrl == profilePhotoUrl));
+                other.profilePhotoUrl == profilePhotoUrl) &&
+            (identical(other.mustCheck, mustCheck) ||
+                other.mustCheck == mustCheck));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, receivedLikes, profilePhotoUrl);
+  int get hashCode =>
+      Object.hash(runtimeType, receivedLikes, profilePhotoUrl, mustCheck);
 
   @JsonKey(ignore: true)
   @override
@@ -135,12 +152,15 @@ class _$UserImpl implements _User {
 abstract class _User implements User {
   const factory _User(
       {required final int receivedLikes,
-      final String? profilePhotoUrl}) = _$UserImpl;
+      final String? profilePhotoUrl,
+      final bool? mustCheck}) = _$UserImpl;
 
   @override
   int get receivedLikes;
   @override
   String? get profilePhotoUrl;
+  @override
+  bool? get mustCheck;
   @override
   @JsonKey(ignore: true)
   _$$UserImplCopyWith<_$UserImpl> get copyWith =>

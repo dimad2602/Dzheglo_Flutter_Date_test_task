@@ -1,3 +1,4 @@
+import 'package:dzheglo_flutter_date_test_task/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:dzheglo_flutter_date_test_task/pages/chats_page/chats_page.dart';
 import 'package:dzheglo_flutter_date_test_task/pages/likes_page/likes_page.dart';
@@ -23,8 +24,9 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black87, // Темный фон
+      backgroundColor: AppColors.mainBlackColor, // Темный фон
       bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.person_outline),
@@ -44,9 +46,10 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Colors.amber, // Цвет активной иконки (желто-золотой)
-        unselectedItemColor: Colors.grey, // Цвет неактивных иконок
-        backgroundColor: Colors.black54, // Цвет нижней панели
+        selectedItemColor: AppColors.selectedIconColor,
+        unselectedItemColor: AppColors.unselectediconColor,
+        backgroundColor:
+            AppColors.buttonNavigationBarColor, // Цвет нижней панели
         onTap: _onItemTapped,
         showSelectedLabels: false,
         showUnselectedLabels: false,
