@@ -1,4 +1,6 @@
+import 'package:dzheglo_flutter_date_test_task/components/sheets/incognito_sheet.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class ChatsPage extends StatefulWidget {
   const ChatsPage({super.key});
@@ -36,25 +38,32 @@ class _ChatsPageState extends State<ChatsPage> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    Row(
-                      children: [
-                        const Text(
-                          'OFF',
-                          style: TextStyle(color: Colors.white),
-                        ),
-                        Switch(
-                          value: _switchValue,
-                          onChanged: (bool newValue) {
-                            setState(() {
-                              _switchValue = newValue;
-                            });
-                          },
-                          activeColor: Colors
-                              .amber, // Цвет активного переключателя (желтый)
-                          inactiveThumbColor:
-                              Colors.grey, // Цвет неактивного переключателя
-                        ),
-                      ],
+                    GestureDetector(
+                      onTap: () {
+                        showIncognitoBottomSheet(
+                          context
+                        );
+                      },
+                      child: Row(
+                        children: [
+                          const Text(
+                            'OFF',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          Switch(
+                            value: _switchValue,
+                            onChanged: (bool newValue) {
+                              setState(() {
+                                _switchValue = newValue;
+                              });
+                            },
+                            activeColor: Colors
+                                .amber, // Цвет активного переключателя (желтый)
+                            inactiveThumbColor:
+                                Colors.grey, // Цвет неактивного переключателя
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),
@@ -63,17 +72,23 @@ class _ChatsPageState extends State<ChatsPage> {
             SliverList(
               delegate: SliverChildBuilderDelegate(
                 (BuildContext context, int index) {
-                  return ListTile(
-                    leading: CircleAvatar(
-                      backgroundImage: AssetImage('assets/avatar_$index.jpg'),
-                    ),
-                    title: Text(
-                      'Профиль $index',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    subtitle: Text(
-                      'Последнее сообщение...',
-                      style: TextStyle(color: Colors.white54),
+                  return GestureDetector(
+                    onTap: () {
+                      Navigator.of(context)
+                          .pushNamed('/CurrentChat');
+                    },
+                    child: ListTile(
+                      leading: CircleAvatar(
+                        backgroundImage: AssetImage('assets/avatar_$index.jpg'),
+                      ),
+                      title: Text(
+                        'Профиль $index',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      subtitle: Text(
+                        'Последнее сообщение...',
+                        style: TextStyle(color: Colors.white54),
+                      ),
                     ),
                   );
                 },
