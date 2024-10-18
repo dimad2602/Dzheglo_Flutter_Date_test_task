@@ -4,5 +4,5 @@ import 'package:flutter/material.dart';
 
 final Map<String, Widget Function(BuildContext context)> routes = {
   '/': (BuildContext context) => const HomePage(),
-  '/CurrentChat': (BuildContext context) => CurrentChatPage(),
+  '/CurrentChat': (BuildContext context) => const CurrentChatPage(),
 };

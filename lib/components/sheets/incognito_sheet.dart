@@ -1,5 +1,7 @@
+import 'package:dzheglo_flutter_date_test_task/components/texts/text_medium.dart';
+import 'package:dzheglo_flutter_date_test_task/components/texts/text_small.dart';
+import 'package:dzheglo_flutter_date_test_task/utils/app_colors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
 
 void showIncognitoBottomSheet(BuildContext context) {
@@ -13,116 +15,107 @@ void showIncognitoBottomSheet(BuildContext context) {
         height: MediaQuery.of(context).size.height * 0.5,
         child: Column(
           children: [
-            Stack(children: [
-              Center(
-                child: SvgPicture.asset(
-                  'lib/assets/images/incognito_glasses_purple.svg',
-                  height: 60,
+            Stack(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 21.0),
+                  child: Center(
+                    child: SvgPicture.asset(
+                      'lib/assets/images/incognito_glasses_purple.svg',
+                    ),
+                  ),
                 ),
-              ),
-              Positioned(
-                top: 1,
-                right: 1,
-                child: IconButton(
-                  icon: const Icon(Icons.close, color: Colors.white),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
+                Positioned(
+                  top: 0,
+                  right: 0,
+                  child: IconButton(
+                    icon: SvgPicture.asset('lib/assets/icons/close_icon.svg'),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  ),
                 ),
-              )
-            ]),
-            const SizedBox(height: 10),
-            const Text(
-              'РЕЖИМ ИНКОГНИТО НА 24 ЧАСА',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
+              ],
             ),
             const SizedBox(height: 10),
-            const Text(
-              'Стань невидимкой в ленте и чатах, скрой объявление и наслаждайся незамеченным',
-              textAlign: TextAlign.left,
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 14,
+            const Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TextMedium(
+                  text: "РЕЖИМ ",
+                  bold: true,
+                  fontWeight: FontWeight.w500,
+                ),
+                TextMedium(
+                  text: "ИНКОГНИТО ",
+                  italic: true,
+                  bold: true,
+                  fontWeight: FontWeight.w500,
+                ),
+                TextMedium(
+                  text: "НА 24 ЧАСА",
+                  italic: true,
+                  bold: true,
+                  fontWeight: FontWeight.w500,
+                ),
+              ],
+            ),
+            const SizedBox(height: 12),
+            const Padding(
+              padding: EdgeInsets.only(left: 16),
+              child: TextSmall(
+                text:
+                    "Стань невидимкой в ленте и чатах, скрой объявление и наслаждайся незамеченным",
+                size: 14,
+                fontWeight: FontWeight.w300,
+                color: AppColors.darkTextColor,
               ),
             ),
             const SizedBox(height: 20),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                _buildCard('1', '99 ₽',
-                    'lib/assets/images/incognito_glasses_gold.svg'),
-                _buildCard('3', '199 ₽',
-                    'lib/assets/images/incognito_glasses_gold.svg',
-                    isHit: true),
-                _buildCard('7', '399 ₽',
-                    'lib/assets/images/incognito_glasses_gold.svg',
-                    isDiscount: true),
+                SvgPicture.asset(
+                  'lib/assets/images/incognito_card_1.svg',
+                ),
+                const SizedBox(
+                  width: 8,
+                ),
+                SvgPicture.asset(
+                  'lib/assets/images/incognito_card_2.svg',
+                ),
+                const SizedBox(
+                  width: 8,
+                ),
+                SvgPicture.asset(
+                  'lib/assets/images/incognito_card_3.svg',
+                ),
               ],
             ),
-            const Spacer(),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Color(0xFFE6007E), // Цвет кнопки
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
-              ),
-              onPressed: () {
-                // Действие на покупку
-              },
-              child: const Text(
-                'Купить',
-                style: TextStyle(color: Colors.white, fontSize: 18),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              child: GestureDetector(
+                onTap: () {},
+                child: Container(
+                    padding: const EdgeInsets.only(top: 8, bottom: 8),
+                    decoration: const BoxDecoration(
+                      color: AppColors.buttonPinkColor,
+                      borderRadius: BorderRadius.all(Radius.circular(8)),
+                    ),
+                    child: const Center(
+                      child: TextMedium(
+                        text: 'Купить',
+                      ),
+                    )),
               ),
             ),
             const SizedBox(height: 10),
-            const Text(
-              'УСЛОВИЯ И ПОЛОЖЕНИЯ',
-              style: TextStyle(color: Colors.white, fontSize: 12),
+            const TextMedium(
+              text: 'УСЛОВИЯ И ПОЛОЖЕНИЯ',
             ),
           ],
         ),
       );
     },
-  );
-}
-
-Widget _buildCard(String days, String price, String imagePath,
-    {bool isHit = false, bool isDiscount = false}) {
-  return Container(
-    decoration: BoxDecoration(
-      color: Colors.black54,
-      borderRadius: BorderRadius.circular(12),
-      border: isHit
-          ? Border.all(color: Colors.red, width: 2)
-          : isDiscount
-              ? Border.all(color: Colors.orange, width: 2)
-              : null,
-    ),
-    padding: const EdgeInsets.all(8.0),
-    child: Column(
-      children: [
-        if (isHit) ...[
-          const Text('Хит',
-              style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold)),
-        ],
-        if (isDiscount) ...[
-          const Text('-42%',
-              style:
-                  TextStyle(color: Colors.orange, fontWeight: FontWeight.bold)),
-        ],
-        SvgPicture.asset(
-          imagePath,
-          height: 10,
-        ),
-        const SizedBox(height: 5),
-        Text(days, style: const TextStyle(color: Colors.white, fontSize: 16)),
-        const SizedBox(height: 5),
-        Text(price, style: const TextStyle(color: Colors.white)),
-      ],
-    ),
   );
 }

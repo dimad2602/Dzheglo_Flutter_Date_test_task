@@ -4,12 +4,14 @@ import 'package:dzheglo_flutter_date_test_task/pages/chats_page/chats_page.dart'
 import 'package:dzheglo_flutter_date_test_task/pages/likes_page/likes_page.dart';
 import 'package:dzheglo_flutter_date_test_task/pages/profile_page/profile_page.dart';
 import 'package:dzheglo_flutter_date_test_task/pages/setting_page/setting_page.dart';
+import 'package:flutter_svg/svg.dart';
+
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
   @override
-  _HomePageState createState() => _HomePageState();
+  State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
@@ -24,52 +26,53 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.mainBlackColor, // Темный фон
+      backgroundColor: AppColors.backgroundColor,
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        items: const <BottomNavigationBarItem>[
+        items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.person_outline),
-            label: '', // Убираем подпись
+            icon: SvgPicture.asset(
+              'lib/assets/icons/flower_icon.svg',
+            ),
+            label: '',
           ),
-          BottomNavigationBarItem(
+          const BottomNavigationBarItem(
             icon: Icon(Icons.chat_outlined),
-            label: '', // Убираем подпись
+            label: '',
           ),
-          BottomNavigationBarItem(
+          const BottomNavigationBarItem(
             icon: Icon(Icons.favorite_border),
-            label: '', // Убираем подпись
+            label: '',
           ),
-          BottomNavigationBarItem(
+          const BottomNavigationBarItem(
             icon: Icon(Icons.settings_outlined),
-            label: '', // Убираем подпись
+            label: '',
           ),
         ],
         currentIndex: _selectedIndex,
         selectedItemColor: AppColors.selectedIconColor,
-        unselectedItemColor: AppColors.unselectediconColor,
-        backgroundColor:
-            AppColors.buttonNavigationBarColor, // Цвет нижней панели
+        unselectedItemColor: AppColors.purpleColor,
+        backgroundColor: AppColors.buttonNavigationBarColor,
         onTap: _onItemTapped,
         showSelectedLabels: false,
         showUnselectedLabels: false,
       ),
-      body: _buildBody(), // Метод для отображения разных экранов
+      body: _buildBody(),
     );
   }
 
   Widget _buildBody() {
     switch (_selectedIndex) {
       case 0:
-        return const ProfilePage(); // Страница профиля
+        return const ProfilePage();
       case 1:
-        return ChatsPage(); // Страница чатов
+        return const ChatsPage();
       case 2:
-        return const LikesPage(); // Страница лайков
+        return const LikesPage();
       case 3:
-        return const SettingsPage(); // Страница настроек
+        return const SettingsPage();
       default:
-        return ChatsPage(); // По умолчанию возвращается страница чатов
+        return const ChatsPage();
     }
   }
 }

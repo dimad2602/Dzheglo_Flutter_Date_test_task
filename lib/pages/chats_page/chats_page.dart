@@ -1,4 +1,7 @@
 import 'package:dzheglo_flutter_date_test_task/components/sheets/incognito_sheet.dart';
+import 'package:dzheglo_flutter_date_test_task/components/texts/text_big.dart';
+import 'package:dzheglo_flutter_date_test_task/components/texts/text_medium.dart';
+import 'package:dzheglo_flutter_date_test_task/components/texts/text_small.dart';
 import 'package:dzheglo_flutter_date_test_task/models/other_user/other_model.dart';
 import 'package:dzheglo_flutter_date_test_task/models/user_model/user_model.dart';
 import 'package:dzheglo_flutter_date_test_task/utils/app_colors.dart';
@@ -9,7 +12,7 @@ class ChatsPage extends StatefulWidget {
   const ChatsPage({super.key});
 
   @override
-  _ChatsPageState createState() => _ChatsPageState();
+  State<ChatsPage> createState() => _ChatsPageState();
 }
 
 class _ChatsPageState extends State<ChatsPage> {
@@ -21,7 +24,6 @@ class _ChatsPageState extends State<ChatsPage> {
 
   List<OtherUser> otherUsers = [];
 
-  // Список различных сообщений
   final List<String> lastMessages = [
     "Привет, как дела?",
     "Завтра встречаемся?",
@@ -37,16 +39,15 @@ class _ChatsPageState extends State<ChatsPage> {
   void initState() {
     super.initState();
 
-    // Инициализация пользователей в initState
     otherUsers = List.generate(
       8,
       (index) => OtherUser(
         profilePhotoUrl: 'lib/assets/avatars/avatar_$index.png',
         lastOnline: DateTime.now().subtract(
-          Duration(hours: 1 + index), // Начинаем с 1 часа назад
+          Duration(hours: 1 + index),
         ),
         lastMessage: lastMessages[index],
-        mustCheck: index % 2 == 0, // Условие для mustCheck
+        mustCheck: index % 2 == 0,
       ),
     );
   }
@@ -56,60 +57,77 @@ class _ChatsPageState extends State<ChatsPage> {
     return CustomScrollView(
       slivers: [
         const SliverAppBar(
+          backgroundColor: AppColors.backgroundColor,
           expandedHeight: 150.0,
           floating: true,
           flexibleSpace: FlexibleSpaceBar(),
         ),
         SliverToBoxAdapter(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text(
-                  'ЧАТЫ',
-                  style: TextStyle(
-                    color: AppColors.mainTextColor,
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                Row(
+          child: ClipRRect(
+            borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(12),
+              topRight: Radius.circular(12),
+            ),
+            child: Container(
+              color: AppColors.mainBlackColor,
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text(
-                      'OFF',
-                      style: TextStyle(
-                        color: AppColors.mainTextColor,
-                      ),
+                    const TextBig(
+                      text: 'ЧАТЫ',
                     ),
-                    Switch(
-                      value: _switchValue,
-                      onChanged: (bool newValue) {
-                        setState(() {
-                          _switchValue = newValue;
-                          showIncognitoBottomSheet(context);
-                        });
-                      },
-                      activeColor: Colors.amber,
-                      inactiveThumbColor: Colors.grey,
+                    Row(
+                      children: [
+                        const TextMedium(
+                          text: 'OFF',
+                        ),
+                        const SizedBox(
+                          width: 12,
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              _switchValue = !_switchValue;
+                              showIncognitoBottomSheet(context);
+                            });
+                          },
+                          child: SvgPicture.asset(
+                            'lib/assets/icons/switch_off.svg',
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
-              ],
+              ),
             ),
           ),
         ),
         // Текущий пользователь
         SliverToBoxAdapter(
-          child: ListTile(
-            leading: SvgPicture.asset(
-              'lib/assets/images/heart.svg',
-              height: 60,
-              width: 60,
-            ),
-            subtitle: Text(
-              '${currentUser.receivedLikes} человек тебя лайкнули',
-              style: const TextStyle(color: Colors.white54),
+          child: Container(
+            color: AppColors.mainBlackColor,
+            child: Column(
+              children: [
+                ListTile(
+                  leading: SvgPicture.asset(
+                    'lib/assets/images/heart.svg',
+                    height: 60,
+                    width: 60,
+                  ),
+                  title: TextMedium(
+                    text: '${currentUser.receivedLikes} человек тебя лайкнули',
+                    size: 14,
+                    bold: true,
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
+                )
+              ],
             ),
           ),
         ),
@@ -122,45 +140,51 @@ class _ChatsPageState extends State<ChatsPage> {
                 onTap: () {
                   Navigator.of(context).pushNamed('/CurrentChat');
                 },
-                child: Stack(
-                  children: [
-                    ListTile(
-                      leading: CircleAvatar(
-                        backgroundImage: AssetImage(user.profilePhotoUrl),
-                        radius: 30,
-                      ),
-                      title: Text(
-                        'Профиль ${index + 1}',
-                        style: const TextStyle(color: AppColors.mainTextColor),
-                      ),
-                      subtitle: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                child: Container(
+                  color: AppColors.mainBlackColor,
+                  child: Column(
+                    children: [
+                      Stack(
                         children: [
-                          Text(
-                            '${user.lastOnline.hour} ч ${user.lastOnline.minute} мин',
-                            style: const TextStyle(color: Colors.white54),
+                          ListTile(
+                            leading: CircleAvatar(
+                              backgroundImage: AssetImage(user.profilePhotoUrl),
+                              radius: 30,
+                            ),
+                            subtitle: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                TextSmall(
+                                  text:
+                                      '${user.lastOnline.hour} ч ${user.lastOnline.minute} мин',
+                                ),
+                                TextSmall(
+                                  text: user.lastMessage ?? "",
+                                  size: 14,
+                                ),
+                              ],
+                            ),
                           ),
-                          Text(
-                            user.lastMessage ?? "",
-                            style: const TextStyle(color: Colors.white54),
-                          ),
+                          if (user.mustCheck ?? false)
+                            Positioned(
+                              top: 25,
+                              right: 15,
+                              child: Container(
+                                width: 4,
+                                height: 4,
+                                decoration: const BoxDecoration(
+                                  color: Colors.white,
+                                  shape: BoxShape.circle,
+                                ),
+                              ),
+                            ),
                         ],
                       ),
-                    ),
-                    if (user.mustCheck ?? false)
-                      Positioned(
-                        top: 25,
-                        right: 10,
-                        child: Container(
-                          width: 12,
-                          height: 12,
-                          decoration: const BoxDecoration(
-                            color: Colors.white,
-                            shape: BoxShape.circle,
-                          ),
-                        ),
-                      ),
-                  ],
+                      const SizedBox(
+                        height: 20,
+                      )
+                    ],
+                  ),
                 ),
               );
             },
