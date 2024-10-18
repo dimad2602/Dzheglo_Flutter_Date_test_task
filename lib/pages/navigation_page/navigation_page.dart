@@ -7,14 +7,14 @@ import 'package:dzheglo_flutter_date_test_task/pages/setting_page/setting_page.d
 import 'package:flutter_svg/svg.dart';
 
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class NavigationPage extends StatefulWidget {
+  const NavigationPage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<NavigationPage> createState() => _NavigationPageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _NavigationPageState extends State<NavigationPage> {
   int _selectedIndex = 1;
 
   void _onItemTapped(int index) {
@@ -26,7 +26,6 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.backgroundColor,
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         items: <BottomNavigationBarItem>[

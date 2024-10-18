@@ -54,144 +54,149 @@ class _ChatsPageState extends State<ChatsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return CustomScrollView(
-      slivers: [
-        const SliverAppBar(
-          backgroundColor: AppColors.backgroundColor,
-          expandedHeight: 150.0,
-          floating: true,
-          flexibleSpace: FlexibleSpaceBar(),
-        ),
-        SliverToBoxAdapter(
-          child: ClipRRect(
-            borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(12),
-              topRight: Radius.circular(12),
-            ),
-            child: Container(
-              color: AppColors.mainBlackColor,
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const TextBig(
-                      text: 'ЧАТЫ',
-                    ),
-                    Row(
-                      children: [
-                        const TextMedium(
-                          text: 'OFF',
-                        ),
-                        const SizedBox(
-                          width: 12,
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              _switchValue = !_switchValue;
-                              showIncognitoBottomSheet(context);
-                            });
-                          },
-                          child: SvgPicture.asset(
-                            'lib/assets/icons/switch_off.svg',
+    return Scaffold(
+      backgroundColor: AppColors.backgroundColor,
+      body: CustomScrollView(
+        slivers: [
+          const SliverAppBar(
+            backgroundColor: AppColors.backgroundColor,
+            expandedHeight: 150.0,
+            floating: true,
+            flexibleSpace: FlexibleSpaceBar(),
+          ),
+          SliverToBoxAdapter(
+            child: ClipRRect(
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(12),
+                topRight: Radius.circular(12),
+              ),
+              child: Container(
+                color: AppColors.mainBlackColor,
+                child: Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const TextBig(
+                        text: 'ЧАТЫ',
+                      ),
+                      Row(
+                        children: [
+                          const TextMedium(
+                            text: 'OFF',
                           ),
-                        ),
-                      ],
-                    ),
-                  ],
+                          const SizedBox(
+                            width: 12,
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                _switchValue = !_switchValue;
+                                showIncognitoBottomSheet(context);
+                              });
+                            },
+                            child: SvgPicture.asset(
+                              'lib/assets/icons/switch_off.svg',
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
           ),
-        ),
-        // Текущий пользователь
-        SliverToBoxAdapter(
-          child: Container(
-            color: AppColors.mainBlackColor,
-            child: Column(
-              children: [
-                ListTile(
-                  leading: SvgPicture.asset(
-                    'lib/assets/images/heart.svg',
-                    height: 60,
-                    width: 60,
+          // Текущий пользователь
+          SliverToBoxAdapter(
+            child: Container(
+              color: AppColors.mainBlackColor,
+              child: Column(
+                children: [
+                  ListTile(
+                    leading: SvgPicture.asset(
+                      'lib/assets/images/heart.svg',
+                      height: 60,
+                      width: 60,
+                    ),
+                    title: TextMedium(
+                      text:
+                          '${currentUser.receivedLikes} человек тебя лайкнули',
+                      size: 14,
+                      bold: true,
+                    ),
                   ),
-                  title: TextMedium(
-                    text: '${currentUser.receivedLikes} человек тебя лайкнули',
-                    size: 14,
-                    bold: true,
-                  ),
-                ),
-                const SizedBox(
-                  height: 20,
-                )
-              ],
+                  const SizedBox(
+                    height: 20,
+                  )
+                ],
+              ),
             ),
           ),
-        ),
-        // Другие пользователи
-        SliverList(
-          delegate: SliverChildBuilderDelegate(
-            (BuildContext context, int index) {
-              final user = otherUsers[index];
-              return GestureDetector(
-                onTap: () {
-                  Navigator.of(context).pushNamed('/CurrentChat');
-                },
-                child: Container(
-                  color: AppColors.mainBlackColor,
-                  child: Column(
-                    children: [
-                      Stack(
-                        children: [
-                          ListTile(
-                            leading: CircleAvatar(
-                              backgroundImage: AssetImage(user.profilePhotoUrl),
-                              radius: 30,
-                            ),
-                            subtitle: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                TextSmall(
-                                  text:
-                                      '${user.lastOnline.hour} ч ${user.lastOnline.minute} мин',
-                                ),
-                                TextSmall(
-                                  text: user.lastMessage ?? "",
-                                  size: 14,
-                                ),
-                              ],
-                            ),
-                          ),
-                          if (user.mustCheck ?? false)
-                            Positioned(
-                              top: 25,
-                              right: 15,
-                              child: Container(
-                                width: 4,
-                                height: 4,
-                                decoration: const BoxDecoration(
-                                  color: Colors.white,
-                                  shape: BoxShape.circle,
-                                ),
+          // Другие пользователи
+          SliverList(
+            delegate: SliverChildBuilderDelegate(
+              (BuildContext context, int index) {
+                final user = otherUsers[index];
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).pushNamed('/CurrentChat');
+                  },
+                  child: Container(
+                    color: AppColors.mainBlackColor,
+                    child: Column(
+                      children: [
+                        Stack(
+                          children: [
+                            ListTile(
+                              leading: CircleAvatar(
+                                backgroundImage:
+                                    AssetImage(user.profilePhotoUrl),
+                                radius: 30,
+                              ),
+                              subtitle: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  TextSmall(
+                                    text:
+                                        '${user.lastOnline.hour} ч ${user.lastOnline.minute} мин',
+                                  ),
+                                  TextSmall(
+                                    text: user.lastMessage ?? "",
+                                    size: 14,
+                                  ),
+                                ],
                               ),
                             ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      )
-                    ],
+                            if (user.mustCheck ?? false)
+                              Positioned(
+                                top: 25,
+                                right: 15,
+                                child: Container(
+                                  width: 4,
+                                  height: 4,
+                                  decoration: const BoxDecoration(
+                                    color: Colors.white,
+                                    shape: BoxShape.circle,
+                                  ),
+                                ),
+                              ),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        )
+                      ],
+                    ),
                   ),
-                ),
-              );
-            },
-            childCount: otherUsers.length,
+                );
+              },
+              childCount: otherUsers.length,
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
